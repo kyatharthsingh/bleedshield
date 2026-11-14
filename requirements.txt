@@ -1,4 +1,6 @@
 Flask
-Werkzeug
-gunicorn
-PyPDF2
+fpdf2
+pandas
+numpy
+scikit-learn
+joblib

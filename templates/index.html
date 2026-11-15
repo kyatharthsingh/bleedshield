@@ -9,11 +9,13 @@ html{scroll-behavior:smooth}
 body{background:#0A1931;color:#0A1931;font-family:'Segoe UI',Arial,sans-serif;line-height:1.6}
 a{text-decoration:none;color:inherit}
 nav{background:#0A1931;color:white;display:flex;justify-content:space-between;align-items:center;padding:16px 5%;position:sticky;top:0;z-index:100}
-nav .logo{font-size:20px;font-weight:800} nav .logo span{color:#FFC1D9}
+nav .logo{font-size:19px;font-weight:800;white-space:nowrap} nav .logo span{color:#FFC1D9}
 nav .links{display:flex;gap:18px;font-size:13px;font-weight:600;color:#CBD5E1;align-items:center}
 nav .links a:hover{color:#FFC1D9}
-nav .nav-btn{background:#FFC1D9;color:#0A1931;padding:9px 18px;border-radius:10px;font-weight:800;font-size:14px}
-.hamburger{display:none;font-size:26px;cursor:pointer;color:white}
+nav .nav-btn{background:#FFC1D9;color:#0A1931;padding:9px 14px;border-radius:10px;font-weight:800;font-size:13px;white-space:nowrap}
+.nav-right{display:flex;align-items:center;gap:16px;margin-right:4px}
+.nav-right .nav-btn{margin-right:8px}
+.hamburger{font-size:26px;cursor:pointer;color:white;padding:0 4px}
 .hero{background:#0A1931;color:white;padding:45px 5% 30px;text-align:center}
 .hero .badge{display:inline-block;background:rgba(255,193,217,.15);color:#FFC1D9;border:1px solid #FFC1D9;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px}
 .hero h1{font-size:48px;line-height:1.1;margin:18px 0 10px;letter-spacing:-1px}
@@ -106,11 +108,15 @@ section .sub{text-align:center;color:#64748B;max-width:650px;margin:0 auto 35px}
 .workshop-box .w-price{font-size:32px;font-weight:800;color:#FFC1D9}
 footer{background:#0A1931;color:#94A3B8;text-align:center;padding:30px;font-size:13px}
 footer b{color:white}
-/* ML BOX */
 .ml-box{max-width:820px;margin:25px auto;background:#0A1931;color:white;border-radius:20px;padding:28px}
 .ml-box p{color:#E2E8F0;font-size:14px}
 .ml-btn{background:#00D4FF;color:black;padding:12px 22px;border:none;border-radius:8px;font-weight:800;cursor:pointer;margin-top:12px}
-@media(max-width:768px){.grid,.steps,.two,.about-wrap,.pro-grid,.workshop-box{grid-template-columns:1fr}.hero h1{font-size:34px}nav .links{display:none;flex-direction:column;position:absolute;top:60px;left:0;width:100%;background:#0A1931;padding:18px}nav .links.show{display:flex}.hamburger{display:block}.hero-img img{height:180px}.about-wrap img{height:220px}.pro-card.featured{transform:none}}
+#navLinks{display:none;position:absolute;top:68px;left:5%;right:5%;background:#0A0A0A;border:1px solid #222;border-radius:22px;padding:10px 22px;flex-direction:column;align-items:flex-start;text-align:left;z-index:200;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+#navLinks.show{display:flex}
+#navLinks a{display:block;width:100%;text-align:left;padding:16px 0;font-size:19px;color:#999;border-bottom:1px solid #111}
+#navLinks a:first-child{color:white}
+#navLinks a:last-child{border:none;color:white}
+@media(max-width:768px){.grid,.steps,.two,.about-wrap,.pro-grid,.workshop-box{grid-template-columns:1fr}.hero h1{font-size:34px}.hero-img img{height:180px}.about-wrap img{height:220px}.pro-card.featured{transform:none}}
 </style>
 <script>
 function showTab(id,btn){
@@ -136,7 +142,7 @@ function copyClone(){
 function runML(){
   let code=document.getElementById('ml-input').value.toLowerCase();
   let score=0, reasons=[];
-  if(!code){document.getElementById('ml-result').innerHTML="⚠️ Pehle code paste karo!";return;}
+  if(!code){document.getElementById('ml-result').innerHTML="Please paste code first!";return;}
   if(code.includes('strcpy')){score+=35;reasons.push('strcpy - unsafe copy');}
   if(code.includes('gets(')){score+=35;reasons.push('gets() - no bounds check');}
   if(code.includes('sprintf')){score+=25;reasons.push('sprintf - overflow risk');}
@@ -144,14 +150,18 @@ function runML(){
   if(code.includes('malloc') && !code.includes('free')){score+=15;reasons.push('memory leak risk');}
   if(code.includes('scanf') && code.includes('%s')){score+=20;reasons.push('scanf %s - unsafe');}
   let out=document.getElementById('ml-result');
-  if(score>=30) out.innerHTML="🔴 <b>VULNERABLE - "+score+"% Risk</b><br>Reason: "+reasons.join(', ');
-  else out.innerHTML="🟢 <b>SAFE - "+(100-score)+"% Safe</b><br>Model ko koi unsafe pattern nahi mila.";
+  if(score>=30) out.innerHTML="VULNERABLE - "+score+"% Risk<br>Reason: "+reasons.join(', ');
+  else out.innerHTML="SAFE - "+(100-score)+"% Safe<br>No unsafe pattern found by the model.";
 }
 </script>
 </head>
 <body>
 <nav>
 <div class="logo">🛡️ BleedShield-<span>kyatharthsingh</span></div>
+<div class="nav-right">
+<a href="#pro" onclick="showSection('pro');return false;" class="nav-btn">Go Pro →</a>
+<div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</div>
+</div>
 <div class="links" id="navLinks">
 <a href="#home" onclick="showSection('home');return false;">Home</a>
 <a href="#how" onclick="showSection('how');return false;">How it Works</a>
@@ -160,10 +170,8 @@ function runML(){
 <a href="#pro" onclick="showSection('pro');return false;">BleedShield Pro</a>
 <a href="#roadmap" onclick="showSection('roadmap');return false;">Roadmap</a>
 <a href="#research" onclick="showSection('research');return false;">Research</a>
-<a href="#github" onclick="showSection('github');return false;">GitHub</a>
+<a href="#github" onclick="showSection('github');return false;">GitHub ↗</a>
 </div>
-<a href="#pro" onclick="showSection('pro');return false;" class="nav-btn">Go Pro →</a>
-<div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</div>
 </nav>
 <div class="hero" id="home">
 <div class="badge">✦ SECURE CODING FOR STUDENTS & DEVELOPERS</div>
@@ -211,17 +219,15 @@ function runML(){
 </form>
 </div>
 </div>
-
 <div class="ml-box page-section" id="ml-box">
 <h2 style="text-align:left">🤖 AI / ML Detection Model</h2>
 <p>Model: Pattern-based ML Classifier trained during Veritas Hackathon</p>
 <p style="margin:10px 0;">Model Accuracy: <b>87.5% - Tested on 200 samples</b> | Training: 160 Safe + 40 Vulnerable</p>
-<textarea id="ml-input" placeholder="Yaha C code paste karo... e.g. strcpy(buffer, input);" style="height:120px;background:white;color:black"></textarea>
+<textarea id="ml-input" placeholder="Paste C code here... e.g. strcpy(buffer, input);" style="height:120px;background:white;color:black"></textarea>
 <button class="ml-btn" onclick="runML()">Check with ML Model</button>
-<p id="ml-result" style="margin-top:12px;">Result yaha aayega.</p>
-<p style="font-size:12px;opacity:0.7;margin-top:10px;">Testing & Honesty: Model unsafe patterns pe accha hai, par complex logic wale code me fail ho sakta hai. Hum isko honestly batate hai.</p>
+<p id="ml-result" style="margin-top:12px;">Result will appear here.</p>
+<p style="font-size:12px;opacity:0.7;margin-top:10px;">Note: The model performs well on unsafe patterns, but may fail on complex logic. We show results honestly.</p>
 </div>
-
 <section class="page-section" id="why">
 <h2>Why BleedShield Matters?</h2>
 <p class="sub">A single buffer overflow can compromise an entire system. Heartbleed leaked data from 17% of the world's servers in 2014.</p>

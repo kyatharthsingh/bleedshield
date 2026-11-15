@@ -6,10 +6,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:#0A1931;color:#0A1931;font-family:'Segoe UI',Arial,sans-serif;line-height:1.6}
+body{background:#0A1931;color:#0A1931;font-family:'Segoe UI',Arial,sans-serif;line-height:1.6;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
-nav{background:#0A1931;color:white;display:flex;justify-content:space-between;align-items:center;padding:16px 5%;position:sticky;top:0;z-index:100}
-nav .logo{font-size:19px;font-weight:800;white-space:nowrap} nav .logo span{color:#FFC1D9}
+nav{background:#0A1931;color:white;display:flex;justify-content:space-between;align-items:center;padding:14px 5%;position:sticky;top:0;z-index:100}
+nav .logo{font-size:19px;font-weight:800;line-height:1.1;white-space:nowrap}
+nav .logo span{display:block;font-size:13px;color:#FFC1D9;line-height:1.1}
 nav .links{display:flex;gap:18px;font-size:13px;font-weight:600;color:#CBD5E1;align-items:center}
 nav .links a:hover{color:#FFC1D9}
 nav .nav-btn{background:#FFC1D9;color:#0A1931;padding:9px 14px;border-radius:10px;font-weight:800;font-size:13px;white-space:nowrap}
@@ -116,7 +117,25 @@ footer b{color:white}
 #navLinks a{display:block;width:100%;text-align:left;padding:16px 0;font-size:19px;color:#999;border-bottom:1px solid #111}
 #navLinks a:first-child{color:white}
 #navLinks a:last-child{border:none;color:white}
-@media(max-width:768px){.grid,.steps,.two,.about-wrap,.pro-grid,.workshop-box{grid-template-columns:1fr}.hero h1{font-size:34px}.hero-img img{height:180px}.about-wrap img{height:220px}.pro-card.featured{transform:none}}
+@media(max-width:768px){
+nav{padding:10px 12px;gap:8px}
+nav .logo{font-size:17px}
+nav .logo span{font-size:12px}
+.nav-right{gap:8px;margin-right:0}
+.nav-right .nav-btn{margin-right:0;padding:7px 10px;font-size:12px}
+.hamburger{font-size:22px;padding:0 2px}
+.hero{padding:30px 12px 20px}
+.hero .badge{max-width:100%;font-size:11px;padding:6px 10px;line-height:1.4;white-space:normal}
+.hero h1{font-size:32px;padding:0 5px}
+.hero p{font-size:14px;padding:0 8px}
+.hero-img{margin:20px 10px 0}
+.scanner{margin:20px 10px 0;padding:20px 14px}
+.grid,.steps,.two,.about-wrap,.pro-grid,.workshop-box{grid-template-columns:1fr}
+.hero-img img{height:180px}
+.about-wrap img{height:220px}
+.pro-card.featured{transform:none}
+#navLinks{left:10px;right:10px;top:62px}
+}
 </style>
 <script>
 function showTab(id,btn){
@@ -157,7 +176,7 @@ function runML(){
 </head>
 <body>
 <nav>
-<div class="logo">🛡️ BleedShield-<span>kyatharthsingh</span></div>
+<div class="logo">🛡️ BleedShield<span>-kyatharthsingh</span></div>
 <div class="nav-right">
 <a href="#pro" onclick="showSection('pro');return false;" class="nav-btn">Go Pro →</a>
 <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</div>
